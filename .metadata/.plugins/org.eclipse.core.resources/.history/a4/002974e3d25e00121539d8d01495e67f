@@ -1,0 +1,114 @@
+package animtest;
+
+import java.awt.Image;
+import java.util.ArrayList;
+
+public class Animation { ///////// WORK IN PROGRESS /////////////
+	
+	private ArrayList frames;
+	private int sequences;
+	private long animTime;
+	private long frameTime;
+	private long animTotalTime;
+	
+	private int frameSeries, totalFrames, frameWidth, frameHeight;
+	
+	private int srcx1,srcy1,srcx2,srcy2;
+	
+	// ANIM CONSTRUCTOR
+	public Animation(){
+		frames = new ArrayList();
+		animTotalTime=0;
+		totalFrames=0;
+		frameWidth=0;
+		frameHeight=0;
+		frameSeries=-1;
+		start();
+	}
+	
+	//SPRITE MAP SETTING VARIABLES
+	public synchronized void setFrameSeries(int num){
+		this.frameSeries = num;
+	}
+	
+	public synchronized void setTotalFames(int num){
+		this.totalFrames = num;
+	}
+	
+	public synchronized void setFrameWidth(int num){
+		this.frameWidth = num;
+	}
+	
+	public synchronized void setFrameHeight(int num){
+		this.frameHeight = num;
+	}
+	
+	
+	//debug
+	public synchronized int getSequence(){
+		return sequences;
+	}
+	public synchronized long getAnimTime(){
+		return animTime;
+	}
+	public synchronized int getFrameSize(){
+		return frames.size();
+	}
+	
+	// Adds frame to ArrayList, sets animation time
+	public synchronized void addFrame(Image i, long t){
+		//frameTime = t;
+		animTotalTime += t;
+		frames.add(new OneFrame(i, animTotalTime));
+	}
+	
+	// Start Animation from beginning
+	public synchronized void start(){
+		animTime=0;
+		sequences=0;
+	}
+	
+	// change frame
+	public synchronized void update(long timePassed){
+		
+		//set animTotalTime based on total frames
+		//animTotalTime=frameTime * totalFrames;		
+		
+		if (frames.size()>1){
+			animTime += timePassed; // time anim has been running
+			if(animTime >= animTotalTime){ // reset frames
+				animTime=0;
+				sequences=0;
+			}
+			while(animTime > getFrame(sequences).endTime){ // looping frame sequences
+				sequences++;
+			}
+		}
+	}
+	
+	// Get current frame as Image object
+	public synchronized Image getImage(){
+		if(frames.size()==0){
+			return null;
+		}else{
+			return getFrame(sequences).pic;
+		}
+	}
+	
+	// Get frame
+	private OneFrame getFrame(int x){
+		return (OneFrame)frames.get(x);
+	}
+
+////// PRIVATE SUBCLASS OneFrame ///////////
+	
+	private class OneFrame{
+		Image pic;
+		long endTime;
+		
+		public OneFrame(Image pic, long endTime){
+			this.pic=pic;
+			this.endTime=endTime;
+		}
+	}
+}

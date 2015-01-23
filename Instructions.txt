@@ -1,0 +1,14 @@
+Run from Eclipse
+
+Workplace set as DIRECTORY://Fan_M_ICS_Summ, where directory is where the ics folder is located
+
+If game frame rate is laggy,
+
+set the DELAY variable in AnimBoard to 10.
+
+Z - autoattack
+X - ranged projectile
+
+UP - jump
+
+Left,Right - move

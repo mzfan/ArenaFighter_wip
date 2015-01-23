@@ -1,0 +1,50 @@
+package animtest;
+
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
+
+public class CatProjectile extends Sprite implements Commons{
+		
+	private Image flyingcat;
+		
+	public CatProjectile(int x, int y, boolean flipped){
+		
+		setX(x);
+		setY(y);
+		
+		try{
+			flyingcat = new ImageIcon(getClass().getResource("shikisprite_attack.gif")).getImage();
+			
+		}catch (Exception e){
+			System.out.println("load cat sprite error.");
+		}
+		if (flipped)
+			dx = 5;
+		else
+			dx = -5;
+	}
+	
+	public void move(){
+		x += dx;
+	}
+	
+	public Image getMap(){
+		return flyingcat;
+	}
+	
+	// HARD SOURCED SPRITE LOCATION
+	public int getSRCX1(){
+		return 0;
+	}
+	public int getSRCY1(){
+		return 128;
+	}
+	public int getSRCX2(){
+		return 40;
+	}
+	public int getSRCY2(){
+		return 128+32;
+	}
+
+}

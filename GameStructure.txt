@@ -1,0 +1,18 @@
+Game Objects to Run program
+
+- moving object parent
+	- player child
+	- enemy child
+	- projectile child
+		- diff projectile attack subchilds
+	- spell child
+		- diff spells/attacks subchilds
+
+- map generator parent
+	- different level childs
+
+- menu screen
+
+- HUD drawscreen
+
+- Board (main logic)
